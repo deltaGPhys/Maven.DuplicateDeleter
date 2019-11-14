@@ -1,5 +1,6 @@
 package com.zipcodewilmington.looplabs;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -56,31 +57,6 @@ public class IntegerDuplicateDeleterTest {
         Integer[] actual = deleter.removeDuplicatesExactly(3);
         TestUtils.assertArrayEquality(expected, actual);
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     @Test
@@ -179,5 +155,145 @@ public class IntegerDuplicateDeleterTest {
         Arrays.sort(input);
         System.out.println("Input:\n\t" + Arrays.toString(input));
         TestUtils.assertArrayEquality(expected, actual);
+    }
+
+    @Test
+    public void countConsecutivesTest() {
+        Integer[] array = {1,1,1,2,2,3,3,3,3,4,5,6,6};
+        Integer expected = 3;
+        IntegerDuplicateDeleter idd = new IntegerDuplicateDeleter(array);
+        Integer actual = idd.countConsecutives(0);
+        Assert.assertEquals(expected,actual);
+    }
+
+    @Test
+    public void countConsecutivesTest2() {
+        Integer[] array = {1,1,1,2,2,3,3,3,3,4,5,6,6};
+        Integer expected = 2;
+        IntegerDuplicateDeleter idd = new IntegerDuplicateDeleter(array);
+        Integer actual = idd.countConsecutives(3);
+        Assert.assertEquals(expected,actual);
+    }
+
+    @Test
+    public void countConsecutivesTest3() {
+        Integer[] array = {1,1,1,2,2,3,3,3,3,4,5,6,6};
+        Integer expected = 4;
+        IntegerDuplicateDeleter idd = new IntegerDuplicateDeleter(array);
+        Integer actual = idd.countConsecutives(5);
+        Assert.assertEquals(expected,actual);
+    }
+
+    @Test
+    public void countConsecutivesTest4() {
+        Integer[] array = {1,1,1,2,2,3,3,3,3,4,5,6,6};
+        Integer expected = 2;
+        IntegerDuplicateDeleter idd = new IntegerDuplicateDeleter(array);
+        Integer actual = idd.countConsecutives(11);
+        Assert.assertEquals(expected,actual);
+    }
+
+    @Test
+    public void countConsecutivesTest5() {
+        Integer[] array = {1,1,1,2,2,3,3,3,3,4,5,6,7};
+        Integer expected = 1;
+        IntegerDuplicateDeleter idd = new IntegerDuplicateDeleter(array);
+        Integer actual = idd.countConsecutives(12);
+        Assert.assertEquals(expected,actual);
+    }
+
+    @Test
+    public void addToArrayTest1() {
+        Integer[] array = new Integer[5];
+        array[0] = 1;
+        array[1] = 1;
+        array[2] = 1;
+        Integer[] expected = {1,1,1,2,2};
+        IntegerDuplicateDeleter idd = new IntegerDuplicateDeleter(array);
+        Integer[] actual = idd.addNtoArray(array,2,2);
+        Assert.assertArrayEquals(expected,actual);
+    }
+
+    @Test
+    public void addToArrayTest2() {
+        Integer[] array = new Integer[5];
+        Integer[] expected = {1,1,1,null,null};
+        IntegerDuplicateDeleter idd = new IntegerDuplicateDeleter(array);
+        Integer[] actual = idd.addNtoArray(array,1,3);
+        Assert.assertArrayEquals(expected,actual);
+    }
+
+    @Test
+    public void addToArrayTest3() {
+        Integer[] array = new Integer[10];
+        Integer[] expected = {1,1,1,2,2,3,3,3,3,3};
+        IntegerDuplicateDeleter idd = new IntegerDuplicateDeleter(array);
+        array = idd.addNtoArray(array,1,3);
+        array = idd.addNtoArray(array,2,2);
+        Integer[] actual = idd.addNtoArray(array,3,5);
+        Assert.assertArrayEquals(expected,actual);
+    }
+
+    @Test
+    public void addToArrayTest4() {
+        Integer[] array = new Integer[5];
+        Integer[] expected = {1,1,1,1,1};
+        IntegerDuplicateDeleter idd = new IntegerDuplicateDeleter(array);
+        Integer[] actual = idd.addNtoArray(array,1,5);
+        Assert.assertArrayEquals(expected,actual);
+    }
+
+    @Test
+    public void nonnullLengthTest() {
+        Integer[] array = new Integer[]{1,1,1,1,1,null};
+        int expected = 5;
+        IntegerDuplicateDeleter idd = new IntegerDuplicateDeleter(array);
+        int actual = idd.getNonnullLength(array);
+        Assert.assertEquals(expected,actual);
+    }
+
+    @Test
+    public void nonnullLengthTest2() {
+        Integer[] array = new Integer[]{1,1,1,1,1,2,2,3,null,null,null,null};
+        int expected = 8;
+        IntegerDuplicateDeleter idd = new IntegerDuplicateDeleter(array);
+        int actual = idd.getNonnullLength(array);
+        Assert.assertEquals(expected,actual);
+    }
+
+    @Test
+    public void nonnullLengthTest3() {
+        Integer[] array = new Integer[]{null,null,null,null};
+        int expected = 0;
+        IntegerDuplicateDeleter idd = new IntegerDuplicateDeleter(array);
+        int actual = idd.getNonnullLength(array);
+        Assert.assertEquals(expected,actual);
+    }
+
+    @Test
+    public void trimArrayTest() {
+        Integer[] array = new Integer[] {1,1,1,2,null,null,null};
+        Integer[] expected = {1,1,1,2};
+        IntegerDuplicateDeleter idd = new IntegerDuplicateDeleter(array);
+        Integer[] actual = idd.trimArray(array);
+        Assert.assertArrayEquals(expected,actual);
+    }
+
+    @Test
+    public void trimArrayTest2() {
+        Integer[] array = {null,null,null,null,null};
+        Integer[] expected = {};
+        IntegerDuplicateDeleter idd = new IntegerDuplicateDeleter(array);
+        Integer[] actual = idd.trimArray(array);
+        Assert.assertArrayEquals(expected,actual);
+    }
+
+    @Test
+    public void trimArrayTest3() {
+        Integer[] array = {1,1,1,2,3,4,5,null,null,null};
+        Integer[] expected = {1,1,1,2,3,4,5};
+        IntegerDuplicateDeleter idd = new IntegerDuplicateDeleter(array);
+        Integer[] actual = idd.trimArray(array);
+        Assert.assertArrayEquals(expected,actual);
     }
 }
